@@ -1,11 +1,12 @@
 // Internal helper types
+import * as React from "react";
 
 /**
  * This is the global JSX.ElementType if it’s defined, otherwise never.
  */
 // @ts-ignore JSX runtimes may optionally define JSX.ElementType. The MDX types need to work regardless whether this is
 // defined or not.
-type ElementType = any extends JSX.ElementType ? never : JSX.ElementType;
+type ElementType = any extends React.JSX.ElementType ? never : React.JSX.ElementType;
 
 /**
  * This matches any function component types that ar part of `ElementType`.
@@ -20,12 +21,12 @@ type ClassElementType = Extract<ElementType, new(props: Record<string, any>) => 
 /**
  * A valid JSX string component.
  */
-type StringComponent = Extract<keyof JSX.IntrinsicElements, ElementType extends never ? string : ElementType>;
+type StringComponent = Extract<keyof React.JSX.IntrinsicElements, ElementType extends never ? string : ElementType>;
 
 /**
  * A JSX element returned by MDX content.
  */
-export type Element = JSX.Element;
+export type Element = React.JSX.Element;
 
 /**
  * A valid JSX function component.
@@ -44,7 +45,7 @@ type FunctionComponent<Props> = ElementType extends never
  */
 type ClassComponent<Props> = ElementType extends never
     // If JSX.ElementType isn’t defined, the valid return type is a constructor that returns JSX.ElementClass
-    ? new(props: Props) => JSX.ElementClass
+    ? new(props: Props) => React.JSX.ElementClass
     : ClassElementType extends never
     // If JSX.ElementType is defined, but doesn’t allow constructors, function components are disallowed.
         ? never
@@ -70,7 +71,7 @@ interface NestedMDXComponents {
 export type MDXComponents =
     & NestedMDXComponents
     & {
-        [Key in StringComponent]?: Component<JSX.IntrinsicElements[Key]>;
+        [Key in StringComponent]?: Component<React.JSX.IntrinsicElements[Key]>;
     }
     & {
         /**

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mdx",
-    "version": "2.0.9999",
+    "version": "3.0.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "mdx",
     "projects": [
@@ -25,6 +25,10 @@
         {
             "name": "Titus Wormer",
             "githubUsername": "wooorm"
+        },
+        {
+          "name": "David Sanchez",
+          "githubUsername": "emulienfou"
         }
     ]
 }
